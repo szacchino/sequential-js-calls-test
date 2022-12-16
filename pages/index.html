@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="./style.css" />
+<h1>Hello Express!</h1>
+<div id="contenitore"></div>
+<script>
+  async function showDataFetch(url, elemId) {
+    const elem = document.getElementById(elemId);
+    var x = await fetch(url)
+      .then((r) => r.text())
+      .then((result) => {
+        console.log(result);
+        elem.innerHTML = result;
+      });
+  }
+
+  async function createUI() {
+    await showDataFetch('/frammento1', 'contenitore');
+    await showDataFetch('/frammento2', 'primo');
+    await showDataFetch('/frammento3', 'secondo');
+  }
+
+  createUI();
+</script>
