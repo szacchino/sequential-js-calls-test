@@ -1,14 +1,43 @@
 <link rel="stylesheet" href="./style.css" />
+<style>
+  .overlay {
+    opacity: 0.8;
+    background-color: #ccc;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
 <h1>Hello Express!</h1>
 <div id="contenitore"></div>
+
 <script>
+  function modalPopup() {
+    const x = document.createElement('div');
+    x.id = 'modal';
+    x.innerHTML =
+      '"<div class="overlay"><div class="overlay-content">Attendere prego</div></div>"';
+    document.body.appendChild(x);
+  }
+
   async function showDataFetch(url, elemId) {
+    modalPopup();
+
     const elem = document.getElementById(elemId);
     var x = await fetch(url)
       .then((r) => r.text())
       .then((result) => {
         console.log(result);
         elem.innerHTML = result;
+        document.getElementById('modal').remove();
+      })
+      .catch((x) => {
+        document.getElementById('modal').remove();
       });
   }
 
