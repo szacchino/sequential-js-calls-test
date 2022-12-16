@@ -12,21 +12,28 @@
     justify-content: center;
     align-items: center;
   }
+
+  .overlay-green {
+    background-color: #cfc;
+  }
+
+  .overlay-purple {
+    background-color: #ccf;
+  }
 </style>
 <h1>Hello Express!</h1>
 <div id="contenitore"></div>
 
 <script>
-  function modalPopup() {
+  function modalPopup(classe) {
     const x = document.createElement('div');
     x.id = 'modal';
-    x.innerHTML =
-      '"<div class="overlay"><div class="overlay-content">Attendere prego</div></div>"';
+    x.innerHTML = `<div class="overlay ${classe}"><div class="overlay-content">Attendere prego</div></div>`;
     document.body.appendChild(x);
   }
 
-  async function showDataFetch(url, elemId) {
-    modalPopup();
+  async function showDataFetch(url, elemId, classe) {
+    modalPopup(classe);
 
     const elem = document.getElementById(elemId);
     var x = await fetch(url)
@@ -42,9 +49,7 @@
   }
 
   async function createUI() {
-    await showDataFetch('/frammento1', 'contenitore');
-    await showDataFetch('/frammento2', 'primo');
-    await showDataFetch('/frammento3', 'secondo');
+    await showDataFetch('/frammento1', 'contenitore', '');
   }
 
   createUI();
